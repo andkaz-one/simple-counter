@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Grid, Paper} from "@mui/material";
 import {Counter} from "./components/Counter";
+import {SettingsCounter} from "./components/SettingsCounter";
 
 function App() {
     let [count, setCount] = useState(0)
+
+
 
     useEffect(() => {
         let countFromLocalStorage = localStorage.getItem('counter_value')
@@ -29,13 +32,11 @@ function App() {
 
     return (
         <div className="App">
-                <Counter value={count} increment={incrementCounter} reset={resetCounter}/>
+            <SettingsCounter setCount={setCount} />
+            <Counter value={count} increment={incrementCounter} reset={resetCounter}/>
         </div>
     );
 }
-
-
-
 
 
 export default App;

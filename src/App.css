@@ -1,14 +1,10 @@
 
 .App {
+    display: flex;
     margin: 200px auto;
-    width: 400px;
-    height: 500px;
+    justify-content: space-evenly;
 }
 
 .Paper {
-    display: flex;
-    width: 600px;
-    height: 500px;
-    justify-content: center;
-    align-items: center;
+
 }
