@@ -5,21 +5,41 @@ import {Counter} from "./components/Counter";
 import {SettingsCounter} from "./components/SettingsCounter";
 
 function App() {
-    let [count, setCount] = useState(0)
+    /*const [startValue, setStartValue] = useState(0)*/
+    const [maxValue, setMaxValue] = useState(10)
+    const [count, setCount] = useState(0)
+
+
+
+
+
+
+ const newMax = (newValue: number) => {
+        setMaxValue(newValue)
+ }
+
+ const newStartValue = (newStartValue: number) => {
+        if(newStartValue <= maxValue) {
+            setCount(newStartValue)
+        }
+ }
 
 
 
     useEffect(() => {
         let countFromLocalStorage = localStorage.getItem('counter_value')
-        if (countFromLocalStorage) {
+        let maxSettingValueFromLocalStorage = localStorage.getItem('settings_MaxValue')
+        if (countFromLocalStorage && maxSettingValueFromLocalStorage) {
             setCount(JSON.parse(countFromLocalStorage))
+            setMaxValue(JSON.parse(maxSettingValueFromLocalStorage))
         }
     }, [])
 
 
     useEffect(() => {
         localStorage.setItem('counter_value', JSON.stringify(count))
-    }, [count])
+        localStorage.setItem('settings_MaxValue', JSON.stringify(maxValue))
+    }, [count, maxValue])
 
 
     const incrementCounter = () => {
@@ -32,8 +52,8 @@ function App() {
 
     return (
         <div className="App">
-            <SettingsCounter setCount={setCount} />
-            <Counter value={count} increment={incrementCounter} reset={resetCounter}/>
+            <SettingsCounter setCount={setCount} newMax={newMax} maxValue={maxValue} newStartValue={newStartValue}/>
+            <Counter value={count} increment={incrementCounter} reset={resetCounter} maxValue={maxValue}/>
         </div>
     );
 }

@@ -2,8 +2,11 @@ import {Button, Paper} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import BlockIcon from '@mui/icons-material/Block';
 import ReplayIcon from '@mui/icons-material/Replay';
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
+
+
+
 
 
 const Container = styled.div`
@@ -21,7 +24,7 @@ const ButtonArea = styled.div`
   width: 400px;
   height: 100px;
   align-items: center;
-  justify-content: space-around;  
+  justify-content: space-around;
 `
 
 
@@ -29,23 +32,27 @@ type PropsType = {
     value: number
     increment: () => void
     reset: () => void
+    maxValue: number
 }
 
 
-export const Counter = ({value, increment, reset}: PropsType) => {
+export const Counter = ({value, increment, reset,...props}: PropsType) => {
+    const [onSett, setSett] = useState(false)
+
+
     return (
         <div>
             <Paper elevation={12}>
                 <Container>
-                    {value}
+                    {onSett ? <input/> : value}
                 </Container>
             </Paper>
             <Paper elevation={8}>
                 <ButtonArea>
                     {
-                        value === 10
-                        ? <Button variant="outlined" disabled onClick={increment}><BlockIcon/></Button>
-                        : <Button variant="outlined" onClick={increment}><AddIcon/></Button>
+                        value === props.maxValue
+                            ? <Button variant="outlined" disabled onClick={increment}><BlockIcon/></Button>
+                            : <Button variant="outlined" onClick={increment}><AddIcon/></Button>
 
                     }
                     {
@@ -53,8 +60,26 @@ export const Counter = ({value, increment, reset}: PropsType) => {
                             ? <Button variant="outlined" disabled onClick={reset}><ReplayIcon/></Button>
                             : <Button variant="outlined" onClick={reset}><ReplayIcon/></Button>
                     }
+
+                    <button onClick={() => {setSett(!onSett)}}>sett</button>
                 </ButtonArea>
+
             </Paper>
+        </div>
+    )
+}
+
+
+
+
+
+
+const SettingsCounter = () => {
+
+    return (
+        <div>
+            <input type={'number'}/>
+            <button>save</button>
         </div>
     )
 }

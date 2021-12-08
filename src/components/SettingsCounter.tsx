@@ -24,41 +24,41 @@ const ButtonArea = styled.div`
 
 type PropsType = {
     setCount: (value: number) => void
+    maxValue: number
+    newMax: (newMaxValue: number)=> void
+    newStartValue: (newStartValue: number)=>void
+
 }
 
 
-export const SettingsCounter = ({setCount}: PropsType) => {
-    const [value, setValue] = useState('0')
-    const [maxValue, setMaxValue] = useState('10')
+export const SettingsCounter = ({newStartValue, maxValue, newMax}: PropsType) => {
+    //local state for start-value (state for max-value based on App.tsx
+    const [startValue, setStartValue] = useState(0)
 
+//handler for change start-value
     const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newValue = e.currentTarget.value
-        setValue(newValue)
-
+        setStartValue(+newValue)
     }
-
+//button set
     const setChangeHandler = () => {
-        if (+value <= +maxValue) {
-            setCount(+value)
-        }
-
+        newStartValue(startValue)
     }
-
+//handler for change maximum-value
     const onChangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newMaxValue = e.currentTarget.value
-        setMaxValue(newMaxValue)
+        newMax(+newMaxValue)
     }
 
 
-
+//UI
     return (
         <div>
             <Paper elevation={12}>
                 <Container>
-
                     <div>
                         Start Value:
-                        <input onChange={onChangeValueHandler} type={"number"} value={value}/>
+                        <input onChange={onChangeValueHandler} type={"number"} value={startValue}/>
                     </div>
                     <div>
                         Max Value:
