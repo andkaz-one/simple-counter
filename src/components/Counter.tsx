@@ -6,9 +6,6 @@ import React, {useState} from "react";
 import styled from "styled-components";
 
 
-
-
-
 const Container = styled.div`
   width: 400px;
   height: 300px;
@@ -36,42 +33,34 @@ type PropsType = {
 }
 
 
-export const Counter = ({value, increment, reset,...props}: PropsType) => {
-    const [onSett, setSett] = useState(false)
-
+export const Counter = ({value, increment, reset, ...props}: PropsType) => {
 
     return (
         <div>
             <Paper elevation={12}>
                 <Container>
-                    {onSett ? <input/> : value}
+                    {value}
                 </Container>
-            </Paper>
-            <Paper elevation={8}>
-                <ButtonArea>
-                    {
-                        value === props.maxValue
-                            ? <Button variant="outlined" disabled onClick={increment}><BlockIcon/></Button>
-                            : <Button variant="outlined" onClick={increment}><AddIcon/></Button>
+                <Paper elevation={8}>
+                    <ButtonArea>
+                        {
+                            value === props.maxValue
+                                ? <Button variant="outlined" disabled onClick={increment}><BlockIcon/></Button>
+                                : <Button variant="outlined" onClick={increment}><AddIcon/></Button>
 
-                    }
-                    {
-                        value === 0
-                            ? <Button variant="outlined" disabled onClick={reset}><ReplayIcon/></Button>
-                            : <Button variant="outlined" onClick={reset}><ReplayIcon/></Button>
-                    }
+                        }
+                        {
+                            value === 0
+                                ? <Button variant="outlined" disabled onClick={reset}><ReplayIcon/></Button>
+                                : <Button variant="outlined" onClick={reset}><ReplayIcon/></Button>
+                        }
+                    </ButtonArea>
 
-                    <button onClick={() => {setSett(!onSett)}}>sett</button>
-                </ButtonArea>
-
+                </Paper>
             </Paper>
         </div>
     )
 }
-
-
-
-
 
 
 const SettingsCounter = () => {
